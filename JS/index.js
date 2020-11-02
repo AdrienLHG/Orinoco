@@ -1,15 +1,9 @@
 ﻿
-const item = document.getElementById('main'); //récupération id=main
+const item = document.getElementById('produits'); //récupération id=main
 let listeProduits = 'http://localhost:3000/api/cameras' // création de la variable pour relier à l'API
 
-fetch(listeProduits).then(response => {
-    if(response.ok) {
-    return response.json()
-} else {
-    Promise.reject(response.status);
-};
-
-    })
+fetch(listeProduits).then(response => 
+     response.json())
     .then(data => {
         data.forEach(objet => {
             let prixProduit = objet.price / 100; // On divise le prix dans le tableau par 100 pour obtenir le bon prix
