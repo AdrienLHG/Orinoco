@@ -20,7 +20,7 @@ fetch(listeProduits).then(response => {
                     <img alt="${objet.name}" class="img-fluid" src="${objet.imageUrl}">
                     <h2 class="text-center">${objet.name}</h2>
                     <p class="text-center">${prixProduit.toFixed(2)} €</p>
-                    <a href="produit.html?id=${objet._id}" class="btn-outline-info text-center">Afficher l'appareil</a>
+                    <a href="page-produit.html?id=${objet._id}" class="btn-outline-info text-center">Afficher l'appareil</a>
                 </div>
                 `;
 
