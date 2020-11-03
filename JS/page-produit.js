@@ -41,8 +41,44 @@ fetch(listeProduits + '/' + itemId).then(response =>
                                 </select>        
                             </div>
                         <p><strong>Prix total</strong> : <span id="totalPrice">${prixProduit.toFixed(2)}</span> €</p>
-                        <button id="btnAjoutId" type="button" class="btn btn-success">Ajouter au panier</button>
+                        <button id="boutonAjout" type="button" class="btn btn-success">Ajouter au panier</button>
                     </form>   
                 </div>
                 `;
-            })
+
+
+ajoutProduitPanier(data){
+
+        let produitAjoute = {
+            name: data.name,
+            id: data._id,
+            quantity: 1,
+            Price: prixProduit,
+            image : data.imageUrl,
+            description : data.description,
+            total: prixProduit
+            
+        };
+                
+        // creation de l'evenement 'ajouter au panier'  
+        const card = document.getElementById('boutonAjout');
+        card.addEventListener('click', ajoutAuPanier );
+        function ajoutAuPanier () {
+            if (!panier) { console.log(panier = []) } ;  //initialisation du panier s'il n'exite pas encore
+            
+            let productAlreadyInCart = panier.find(data => data.name == productSelected.name);  //verification si l'objet selectionné existe deja dans le panier
+            if (productAlreadyInCart){ // si oui modification de la quantité et du prix du produit dans le panier 
+                productAlreadyInCart.quantity ++;
+                productSelected.total = productSelected.Price * productAlreadyInCart.quantity
+                localStorage.setItem('monPanier', JSON.stringify(panier));
+                MiseAJourPanier() // Fonction à définir             
+                
+            }else{ // si non, push du produit dans le panier
+                panier.push(productSelected);  
+                localStorage.setItem('monPanier', JSON.stringify(panier));
+                MiseAjourPanier()
+            };              
+        }       
+    } 
+})
+
