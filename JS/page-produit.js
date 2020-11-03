@@ -51,26 +51,20 @@ fetch(listeProduits + '/' + itemId).then(response =>
         ajoutPanier.addEventListener('click', function() {
             ajoutAuPanier()
         });
-    });
 
-    function ajoutAuPanier(data) {
-
-        //--variable prix pour le diviser par 100
-                    let prixProduit = data.price / 100;  
+    function ajoutAuPanier() { 
 
         //--variable produit ajouté au panier 
                     let produitAjoute = {
                         name: data.name,
                         id: data._id,
                         quantity: 1,
-                        Price: prixProduit,
                         image : data.imageUrl,
-                        description : data.description,
-                        total: prixProduit
-                    }
+                        price: data.price / 100
+                    };
                                            
         // creation de l'evenement 'ajouter au panier'  
-        // Définir l'objet panier
+        let panier = JSON.parse(localStorage.getItem("monPanier"));
         if (!panier) { console.log(panier = []) } ;  //initialisation du panier s'il n'exite pas encore
                         
         let produitPresent = panier.find(data => data.name == produitAjoute.name);  //verification si l'objet selectionné existe deja dans le panier
@@ -78,11 +72,20 @@ fetch(listeProduits + '/' + itemId).then(response =>
             produitPresent.quantity ++;
             produitAjoute.total = produitAjoute.Price * produitPresent.quantity
             localStorage.setItem('monPanier', JSON.stringify(panier));
-            MiseAJourPanier() // Fonction à définir             
+            //MiseAJourPanier() // Fonction à définir
+            alert (`Votre produit à bien été ajouté au panier`)
+            console.log (produitAjoute)          
                                     
         }else{ // si non, push du produit dans le panier
             panier.push(produitAjoute);  
             localStorage.setItem('monPanier', JSON.stringify(panier));                                
-            MiseAjourPanier()
+            //MiseAjourPanier()
+            alert (`Votre produit à bien été ajouté au panier`)
+            console.log (produitAjoute)          
+          
+
         };                                
+    }
+});
+    function MiseAjourPanier() {
     }
