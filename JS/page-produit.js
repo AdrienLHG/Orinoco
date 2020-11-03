@@ -45,40 +45,44 @@ fetch(listeProduits + '/' + itemId).then(response =>
                     </form>   
                 </div>
                 `;
+    
 
+        const ajoutPanier = document.getElementById('boutonAjout');
+        ajoutPanier.addEventListener('click', function() {
+            ajoutAuPanier()
+        });
+    });
 
-ajoutProduitPanier(data){
+    function ajoutAuPanier(data) {
 
-        let produitAjoute = {
-            name: data.name,
-            id: data._id,
-            quantity: 1,
-            Price: prixProduit,
-            image : data.imageUrl,
-            description : data.description,
-            total: prixProduit
-            
-        };
-                
+        //--variable prix pour le diviser par 100
+                    let prixProduit = data.price / 100;  
+
+        //--variable produit ajouté au panier 
+                    let produitAjoute = {
+                        name: data.name,
+                        id: data._id,
+                        quantity: 1,
+                        Price: prixProduit,
+                        image : data.imageUrl,
+                        description : data.description,
+                        total: prixProduit
+                    }
+                                           
         // creation de l'evenement 'ajouter au panier'  
-        const card = document.getElementById('boutonAjout');
-        card.addEventListener('click', ajoutAuPanier );
-        function ajoutAuPanier () {
-            if (!panier) { console.log(panier = []) } ;  //initialisation du panier s'il n'exite pas encore
-            
-            let productAlreadyInCart = panier.find(data => data.name == productSelected.name);  //verification si l'objet selectionné existe deja dans le panier
-            if (productAlreadyInCart){ // si oui modification de la quantité et du prix du produit dans le panier 
-                productAlreadyInCart.quantity ++;
-                productSelected.total = productSelected.Price * productAlreadyInCart.quantity
-                localStorage.setItem('monPanier', JSON.stringify(panier));
-                MiseAJourPanier() // Fonction à définir             
-                
-            }else{ // si non, push du produit dans le panier
-                panier.push(productSelected);  
-                localStorage.setItem('monPanier', JSON.stringify(panier));
-                MiseAjourPanier()
-            };              
-        }       
-    } 
-})
-
+        // Définir l'objet panier
+        if (!panier) { console.log(panier = []) } ;  //initialisation du panier s'il n'exite pas encore
+                        
+        let produitPresent = panier.find(data => data.name == produitAjoute.name);  //verification si l'objet selectionné existe deja dans le panier
+        if (produitPresent){ // si oui modification de la quantité et du prix du produit dans le panier 
+            produitPresent.quantity ++;
+            produitAjoute.total = produitAjoute.Price * produitPresent.quantity
+            localStorage.setItem('monPanier', JSON.stringify(panier));
+            MiseAJourPanier() // Fonction à définir             
+                                    
+        }else{ // si non, push du produit dans le panier
+            panier.push(produitAjoute);  
+            localStorage.setItem('monPanier', JSON.stringify(panier));                                
+            MiseAjourPanier()
+        };                                
+    }
