@@ -31,10 +31,18 @@ for (let produit of panier) {
 };
 
 } else {
-inHtml.innerHTML = `
+    affichagePanier.innerHTML = `
     <div class="container-fluid">
         <img class="center-block gif" alt="" src="images/polizas_gif.gif" />
         <p class="text-center lead">Votre panier est vide :'(</p>
     </div>
     `;
 };
+
+//total panier 
+let total = 0;
+JSON.parse(localStorage.getItem("monPanier")).forEach(produit => {
+    total += produit.price;
+});
+let prixTotal = document.getElementById('prixtotal');
+prixTotal.textContent = "Prix total: " + total + ".00" + " €"; 

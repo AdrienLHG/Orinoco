@@ -81,7 +81,7 @@ fetch(listeProduits + '/' + itemId).then(response =>
             localStorage.setItem('monPanier', JSON.stringify(panier));                                
             //MiseAjourPanier()
             alert (`Votre produit à bien été ajouté au panier`)
-            console.log (panier)          
+            console.log(panier)          
           
 
         };                                
