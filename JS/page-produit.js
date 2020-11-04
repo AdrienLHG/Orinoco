@@ -70,22 +70,23 @@ fetch(listeProduits + '/' + itemId).then(response =>
         let produitPresent = panier.find(data => data.name == produitAjoute.name);  //verification si l'objet selectionné existe deja dans le panier
         if (produitPresent){ // si oui modification de la quantité et du prix du produit dans le panier 
             produitPresent.quantity ++;
-            produitAjoute.total = produitAjoute.Price * produitPresent.quantity
+            produitAjoute.total = produitAjoute.price * produitPresent.quantity
             localStorage.setItem('monPanier', JSON.stringify(panier));
             //MiseAJourPanier() // Fonction à définir
             alert (`Votre produit à bien été ajouté au panier`)
-            console.log (produitAjoute)          
+            console.log (panier)          
                                     
         }else{ // si non, push du produit dans le panier
             panier.push(produitAjoute);  
             localStorage.setItem('monPanier', JSON.stringify(panier));                                
             //MiseAjourPanier()
             alert (`Votre produit à bien été ajouté au panier`)
-            console.log (produitAjoute)          
+            console.log (panier)          
           
 
         };                                
     }
 });
+
     function MiseAjourPanier() {
     }
