@@ -15,7 +15,7 @@ for (let produit of panier) {
 
             <div class="col-lg-5">
                 <a href="produit.html?id=${produit.id}"><h2 class="mb-2">${produit.name}</h2></a>
-                <p><strong>Quantité</strong> : ${produit.quantite}</p>
+                <p><strong>Quantité</strong> : <i class="fas fa-chevron-left"></i><span class="quantite" > ${produit.quantity} </span><i class="fas fa-chevron-right"></i></p>
             </div>
 
             <div class="col-lg-2"
@@ -32,17 +32,19 @@ for (let produit of panier) {
 
 } else {
     affichagePanier.innerHTML = `
-    <div class="container-fluid">
-        <img class="center-block gif" alt="" src="images/polizas_gif.gif" />
-        <p class="text-center lead">Votre panier est vide :'(</p>
-    </div>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h1 class="display-4">Orinoco</h1>
+              <p class="lead">Votre panier est vide ! Pensez à y ajouter des articles pour les commander.</p>
+            </div>
+        </div>
     `;
 };
 
 //total panier 
 let total = 0;
 JSON.parse(localStorage.getItem("monPanier")).forEach(produit => {
-    total += produit.price;
+    total += produit.price ;
 });
 let prixTotal = document.getElementById('prixtotal');
 prixTotal.textContent = "Prix total: " + total + ".00" + " €"; 

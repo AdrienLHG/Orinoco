@@ -1,2 +1,8 @@
-﻿body {
+﻿.fas, .fa {
+	font-size: 1.2rem;
 }
+
+.quantite {
+	font-size: 1.5rem;
+}
+

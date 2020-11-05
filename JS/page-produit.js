@@ -32,14 +32,12 @@ fetch(listeProduits + '/' + itemId).then(response =>
                     <h2>${data.name}</h2>
                     <p>${data.description}</p>
                     <form>
-                        <label for="QuantiteProduit">Quantité:</label>
-                        <input id ="inputQuantite" type="number" min="1" value="1"/>
-                            <div class="col-auto my-1 pb-5 mt-4">
-                                <label class="mr-sm-2" for="inlineFormCustomSelect">Objectifs</label>
-                                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                    ${lens}   
-                                </select>        
-                            </div>
+                        <div class="col-auto my-1 pb-5 mt-4">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect">Objectifs</label>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                ${lens}   
+                            </select>        
+                        </div>
                         <p><strong>Prix total</strong> : <span id="totalPrice">${prixProduit.toFixed(2)}</span> €</p>
                         <button id="boutonAjout" type="button" class="btn btn-success">Ajouter au panier</button>
                     </form>   
@@ -59,8 +57,9 @@ fetch(listeProduits + '/' + itemId).then(response =>
                         name: data.name,
                         id: data._id,
                         quantity: 1,
-                        image : data.imageUrl,
-                        price: data.price / 100
+                        image: data.imageUrl,
+                        price: data.price / 100,
+                        total: data.price / 100
                     };
                                            
         // creation de l'evenement 'ajouter au panier'  
@@ -72,15 +71,15 @@ fetch(listeProduits + '/' + itemId).then(response =>
             produitPresent.quantity ++;
             produitAjoute.total = produitAjoute.price * produitPresent.quantity
             localStorage.setItem('monPanier', JSON.stringify(panier));
-            //MiseAJourPanier() // Fonction à définir
             alert (`Votre produit à bien été ajouté au panier`)
+            //localStorage.clear()
             console.log (panier)          
                                     
         }else{ // si non, push du produit dans le panier
             panier.push(produitAjoute);  
             localStorage.setItem('monPanier', JSON.stringify(panier));                                
-            //MiseAjourPanier()
             alert (`Votre produit à bien été ajouté au panier`)
+            //localStorage.clear()
             console.log(panier)          
           
 
