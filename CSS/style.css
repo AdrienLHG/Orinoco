@@ -2,6 +2,10 @@
 	font-size: 1.2rem;
 }
 
+.fas:hover,
+.fa:hover {
+cursor: pointer;
+}
 .quantite {
 	font-size: 1.5rem;
 }

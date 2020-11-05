@@ -6,6 +6,7 @@ const affichagePanier = document.getElementById('panierachat') //récupération 
 let panier = JSON.parse(localStorage.getItem("monPanier"));
 if (localStorage.length > 0) {
 for (let produit of panier) { 
+
             // on ajoute les informations des appareils dans le HTML
             affichagePanier.innerHTML += `
             <div class="row m-2 panierLine">
@@ -15,21 +16,24 @@ for (let produit of panier) {
 
             <div class="col-lg-5">
                 <a href="produit.html?id=${produit.id}"><h2 class="mb-2">${produit.name}</h2></a>
-                <p><strong>Quantité</strong> : <i class="fas fa-chevron-left"></i><span class="quantite" > ${produit.quantity} </span><i class="fas fa-chevron-right"></i></p>
+                <p><strong>Quantité</strong> : 
+                <i class="fas fa-chevron-left" id='${produit.name}moins'></i><span class="quantite" id='${produit.name}quantite'> ${produit.quantity} </span><i class="fas fa-chevron-right" id='${produit.name}plus'></i></p>
             </div>
 
             <div class="col-lg-2"
-                <p class="prixProduitPanier"><strong>Prix : <span>${produit.price.toFixed(2)} €</span></strong></p>   
+                <p class="prixProduitPanier" id='${produit.name}total'><strong>Prix : <span>${produit.total.toFixed(2)} €</span></strong></p>   
             </div>
 
             <div class="col-lg-2">
                 <i onclick="deleteItem('${produit.id}')" class="fa fa-trash"></i>  
             </div>
         </div>
-        `;
+        `; 
+        ModifierQuantite(produit)
+                TotalPanier()  
 
-};
 
+    }
 } else {
     affichagePanier.innerHTML = `
         <div class="jumbotron jumbotron-fluid">
@@ -41,10 +45,38 @@ for (let produit of panier) {
     `;
 };
 
+
 //total panier 
-let total = 0;
-JSON.parse(localStorage.getItem("monPanier")).forEach(produit => {
-    total += produit.price ;
+function TotalPanier(){
+
+ let total = 0;
+ JSON.parse(localStorage.getItem("monPanier")).forEach(produit => {
+ total += produit.price ;
+ });
+ let prixTotal = document.getElementById('prixtotal');
+ prixTotal.textContent = "Prix total: " + total + ".00" + " €"; 
+}
+ //Modifiation quantités panier 
+function ModifierQuantite(produit){
+// Ajout d'une quantité
+     let ajoutQuantiteProduit = document.getElementById(`${produit.name}plus`);
+     ajoutQuantiteProduit.addEventListener ('click', function() {
+     let quantitePanier = document.getElementById(`${produit.name}quantite`);
+     let totalPrixProduit = document.getElementById(`${produit.name}total`); 
+
+     produit.quantity ++;
+     quantitePanier.innerHTML = ' ' + produit.quantity  +  ' '
+     totalPrixProduit.innerHTML = `<strong>${produit.quantity * produit.price.toFixed(2)}</strong> €`
+ });
+ // Suppression d'une quantité
+    let suppressionQuantitéProduit = document.getElementById(`${produit.name}moins`);
+    suppressionQuantitéProduit.addEventListener ('click', function() {
+    let quantitePanier = document.getElementById(`${produit.name}quantite`);
+    let totalPrixProduit = document.getElementById(`${produit.name}total`); 
+
+    produit.quantity --;
+    quantitePanier.innerHTML = ' ' + produit.quantity  +  ' '
+    totalPrixProduit.innerHTML = `<strong>${produit.quantity * produit.price.toFixed(2)}</strong> €`
 });
-let prixTotal = document.getElementById('prixtotal');
-prixTotal.textContent = "Prix total: " + total + ".00" + " €"; 
+};
+

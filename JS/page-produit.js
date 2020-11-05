@@ -86,6 +86,3 @@ fetch(listeProduits + '/' + itemId).then(response =>
         };                                
     }
 });
-
-    function MiseAjourPanier() {
-    }
