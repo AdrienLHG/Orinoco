@@ -9,28 +9,28 @@ for (let produit of panier) {
 
             // on ajoute les informations des appareils dans le HTML
             affichagePanier.innerHTML += `
-            <div class="row m-2 panierLine">
-            <div class="col-lg-3">
-                <img alt="${produit.name}" class="img-fluid" src="${produit.image}">
-            </div>
+            <div class="row m-2 ligne-produit">
+                <div class="col-lg-3">
+                    <img alt="${produit.name}" class="img-fluid" src="${produit.image}">
+                </div>
 
-            <div class="col-lg-5">
-                <a href="produit.html?id=${produit.id}"><h2 class="mb-2">${produit.name}</h2></a>
-                <p><strong>Quantité</strong> : 
-                <i class="fas fa-chevron-left" id='${produit.name}moins'></i><span class="quantite" id='${produit.name}quantite'> ${produit.quantity} </span><i class="fas fa-chevron-right" id='${produit.name}plus'></i></p>
-            </div>
+                <div class="col-lg-5">
+                    <a href="produit.html?id=${produit.id}"><h2 class="mb-2">${produit.name}</h2></a>
+                    <p><strong>Quantité</strong> : 
+                    <i class="fas fa-chevron-left" id='${produit.name}moins'></i><span class="quantite" id='${produit.name}quantite'> ${produit.quantity} </span><i class="fas fa-chevron-right" id='${produit.name}plus'></i></p>
+                </div>
 
-            <div class="col-lg-2"
-                <p class="prixProduitPanier" id='${produit.name}total'><strong>Prix : <span>${produit.total.toFixed(2)} €</span></strong></p>   
-            </div>
+                <div class="col-lg-2"
+                    <p class="prixProduitPanier" id='${produit.name}total'><strong>Prix : <span class='chiffre-prix'>${produit.total.toFixed(2)} €</span></strong></p>   
+                 </div>
 
-            <div class="col-lg-2">
-                <i onclick="deleteItem('${produit.id}')" class="fa fa-trash"></i>  
+                <div class="col-lg-2">
+                    <i class="fa fa-trash"></i>  
+                 </div>
             </div>
-        </div>
         `; 
-        ModifierQuantite(produit)
-                TotalPanier()  
+//        ModifierQuantite(produit)
+        miseAJourTotal()
 
 
     }
@@ -46,17 +46,43 @@ for (let produit of panier) {
 };
 
 
-//total panier 
-function TotalPanier(){
+let boutonSuppressionArticle = document.getElementsByClassName ('fa-trash')
+for (let i = 0; i < boutonSuppressionArticle.length; i++) {
+    let supprimer = boutonSuppressionArticle[i]
+    supprimer.addEventListener ('click', function(event) {
+        let supprimerArticle = event.target
+        supprimerArticle.parentElement.parentElement.remove()
+        miseAJourTotal()
 
- let total = 0;
+    });
+}
+
+function miseAJourTotal() {
+    let lignesPanier = affichagePanier.getElementsByClassName('ligne-produit')
+    let total = 0;
+    for (let i = 0; i < lignesPanier.length; i++) {
+        let ligneProduit = lignesPanier[i]
+        let prixProduit = ligneProduit.getElementsByClassName('chiffre-prix')[0]
+        let quantiteProduit = ligneProduit.getElementsByClassName('quantite')[0]
+        let prix = parseFloat(prixProduit.innerText.replace('€', ''))
+        let quantite = quantiteProduit.innerText
+        total = total + (prix * quantite)
+        console.log (quantite)
+    }
+let prixTotal = document.getElementsByClassName('prix-total')[0];
+ prixTotal.innerText = "Prix total: " + total  + ".00 €"; 
+}
+
+
+//total panier 
+/*/function TotalPanier(){
+
  JSON.parse(localStorage.getItem("monPanier")).forEach(produit => {
  total += produit.price ;
- });
- let prixTotal = document.getElementById('prixtotal');
- prixTotal.textContent = "Prix total: " + total + ".00" + " €"; 
-}
- //Modifiation quantités panier 
+ });/*/
+ 
+
+/*/ //Modifiation quantités panier 
 function ModifierQuantite(produit){
 // Ajout d'une quantité
      let ajoutQuantiteProduit = document.getElementById(`${produit.name}plus`);
@@ -79,4 +105,5 @@ function ModifierQuantite(produit){
     totalPrixProduit.innerHTML = `<strong>${produit.quantity * produit.price.toFixed(2)}</strong> €`
 });
 };
+/*/
 
