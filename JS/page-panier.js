@@ -53,8 +53,16 @@ for (let i = 0; i < boutonSuppressionArticle.length; i++) {
         let supprimerArticle = event.target
         supprimerArticle.parentElement.parentElement.remove()
         miseAJourTotal()
-
+        suppressionArticle(event.target.id)
     });
+}
+
+function suppressionArticle(i) {
+    console.log("suppression article i :", i);
+    panier.splice(i, 1); //suppression de l'element i du tableau;  
+    localStorage.clear(); //on vide le storage avant de le mettre à jour;
+    localStorage.setItem("monPanier", JSON.stringify(panier)); //maj du panier sans l'élément i;
+    window.location.reload();
 }
 
 function miseAJourTotal() {
@@ -67,7 +75,6 @@ function miseAJourTotal() {
         let prix = parseFloat(prixProduit.innerText.replace('€', ''))
         let quantite = quantiteProduit.innerText
         total = total + (prix * quantite)
-        console.log (quantite)
     }
 let prixTotal = document.getElementsByClassName('prix-total')[0];
  prixTotal.innerText = "Prix total: " + total  + ".00 €"; 
