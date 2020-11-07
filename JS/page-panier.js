@@ -4,7 +4,7 @@
 
 const affichagePanier = document.getElementById('panierachat') //récupération id=panierachat
 let panier = JSON.parse(localStorage.getItem("monPanier"));
-if (localStorage.length > 0) {
+if (panier.length > 0) {
 for (let produit of panier) { 
 
             // on ajoute les informations des appareils dans le HTML
@@ -17,7 +17,7 @@ for (let produit of panier) {
                 <div class="col-lg-5">
                     <a href="produit.html?id=${produit.id}"><h2 class="mb-2">${produit.name}</h2></a>
                     <p><strong>Quantité</strong> : 
-                    <i class="fas fa-chevron-left" id='${produit.name}moins'></i><span class="quantite" id='${produit.name}quantite'> ${produit.quantity} </span><i class="fas fa-chevron-right" id='${produit.name}plus'></i></p>
+                    <input class=" col-lg-2 quantite" id="${produit.quantity}quantite" type="number" value="${produit.quantity}">
                 </div>
 
                 <div class="col-lg-2"
@@ -29,7 +29,6 @@ for (let produit of panier) {
                  </div>
             </div>
         `; 
-//        ModifierQuantite(produit)
         miseAJourTotal()
 
 
@@ -57,6 +56,29 @@ for (let i = 0; i < boutonSuppressionArticle.length; i++) {
     });
 }
 
+let modificationQuantite = document.getElementsByClassName('quantite')
+for (let i = 0; i < modificationQuantite.length; i++) {
+    let quantite = modificationQuantite[i]
+    quantite.addEventListener ('change', changementQuantite)
+    quantite.addEventListener ('change', miseAJourPanier)
+
+}
+
+function changementQuantite(event) {
+    let chiffreQuantite = event.target
+    if (isNaN(chiffreQuantite.value) || chiffreQuantite <= 0)
+    chiffreQuantite.value = 1
+    miseAJourTotal()
+
+};
+
+function miseAJourPanier(i) {
+    console.log(panier);
+   // panier.splice(0, 5, "3"); //suppression de l'element i du tableau;  
+   //localStorage.setItem("monPanier", JSON.stringify(panier)); "quantity : chiffreQuantite.value"
+    };
+
+
 function suppressionArticle(i) {
     console.log("suppression article i :", i);
     panier.splice(i, 1); //suppression de l'element i du tableau;  
@@ -73,7 +95,7 @@ function miseAJourTotal() {
         let prixProduit = ligneProduit.getElementsByClassName('chiffre-prix')[0]
         let quantiteProduit = ligneProduit.getElementsByClassName('quantite')[0]
         let prix = parseFloat(prixProduit.innerText.replace('€', ''))
-        let quantite = quantiteProduit.innerText
+        let quantite = quantiteProduit.value
         total = total + (prix * quantite)
     }
 let prixTotal = document.getElementsByClassName('prix-total')[0];
@@ -81,12 +103,6 @@ let prixTotal = document.getElementsByClassName('prix-total')[0];
 }
 
 
-//total panier 
-/*/function TotalPanier(){
-
- JSON.parse(localStorage.getItem("monPanier")).forEach(produit => {
- total += produit.price ;
- });/*/
  
 
 /*/ //Modifiation quantités panier 
