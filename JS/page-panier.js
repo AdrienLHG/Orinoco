@@ -60,7 +60,6 @@ let modificationQuantite = document.getElementsByClassName('quantite')
 for (let i = 0; i < modificationQuantite.length; i++) {
     let quantite = modificationQuantite[i]
     quantite.addEventListener ('change', changementQuantite)
-    quantite.addEventListener ('change', miseAJourPanier)
 
 }
 
@@ -68,16 +67,19 @@ function changementQuantite(event) {
     let chiffreQuantite = event.target
     if (isNaN(chiffreQuantite.value) || chiffreQuantite <= 0)
     chiffreQuantite.value = 1
+    let panier = JSON.parse(localStorage.getItem("monPanier"));
+       panier.forEach(produit => {
+        function modificationQuantitePanier(produit) {
+        produit.quantity = chiffreQuantite.value
+        localStorage.clear(); //on vide le storage avant de le mettre à jour;
+        localStorage.setItem("monPanier", JSON.stringify(panier)); //maj du panier sans l'élément i;
+    }
+        modificationQuantitePanier(produit)
+    });
+    console.log (panier)
     miseAJourTotal()
 
 };
-
-function miseAJourPanier(i) {
-    console.log(panier);
-   // panier.splice(0, 5, "3"); //suppression de l'element i du tableau;  
-   //localStorage.setItem("monPanier", JSON.stringify(panier)); "quantity : chiffreQuantite.value"
-    };
-
 
 function suppressionArticle(i) {
     console.log("suppression article i :", i);
