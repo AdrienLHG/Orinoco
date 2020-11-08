@@ -1,4 +1,4 @@
-﻿// Création des actions sur le panier : mise à jour du panier (ajout des lignes), mise à jourdu prix total, action sur les produits : ajout quantité, suppresion quantité, suppression article
+// Création des actions sur le panier : mise à jour du panier (ajout des lignes), mise à jourdu prix total, action sur les produits : ajout quantité, suppresion quantité, suppression article
 // Envoi des information du panier via le formulaire
 // création du prix total panier
 
@@ -21,8 +21,11 @@ for (let produit of panier) {
                 </div>
 
                 <div class="col-lg-2"
-                    <p class="prixProduitPanier" id='${produit.name}total'><strong>Prix : <span class='chiffre-prix'>${produit.total.toFixed(2)} €</span></strong></p>   
+                    <p class="prixProduitPanier" id='${produit.name}total'><strong>Prix unitaire : <span class='chiffre-prix'>${produit.price.toFixed(2)} €</span></strong></p>   
                  </div>
+                 <div class="col-lg-2"
+                 <p class="prixProduitQuantite" id='${produit.name}total'><strong>Prix total : <span class='chiffre-prix'>${produit.total}</span></strong></p>   
+              </div>
 
                 <div class="col-lg-2">
                     <i class="fa fa-trash"></i>  
@@ -65,8 +68,9 @@ for (let i = 0; i < modificationQuantite.length; i++) {
 
 function changementQuantite(event) {
     let chiffreQuantite = event.target
-    if (isNaN(chiffreQuantite.value) || chiffreQuantite <= 0)
+    if (isNaN(chiffreQuantite.value) || chiffreQuantite <= 0) {
     chiffreQuantite.value = 1
+}
     let panier = JSON.parse(localStorage.getItem("monPanier"));
        panier.forEach(produit => {
         function modificationQuantitePanier(produit) {
@@ -76,7 +80,7 @@ function changementQuantite(event) {
     }
         modificationQuantitePanier(produit)
     });
-    console.log (panier)
+    console.log(panier)
     miseAJourTotal()
 
 };
@@ -105,30 +109,4 @@ let prixTotal = document.getElementsByClassName('prix-total')[0];
 }
 
 
- 
-
-/*/ //Modifiation quantités panier 
-function ModifierQuantite(produit){
-// Ajout d'une quantité
-     let ajoutQuantiteProduit = document.getElementById(`${produit.name}plus`);
-     ajoutQuantiteProduit.addEventListener ('click', function() {
-     let quantitePanier = document.getElementById(`${produit.name}quantite`);
-     let totalPrixProduit = document.getElementById(`${produit.name}total`); 
-
-     produit.quantity ++;
-     quantitePanier.innerHTML = ' ' + produit.quantity  +  ' '
-     totalPrixProduit.innerHTML = `<strong>${produit.quantity * produit.price.toFixed(2)}</strong> €`
- });
- // Suppression d'une quantité
-    let suppressionQuantitéProduit = document.getElementById(`${produit.name}moins`);
-    suppressionQuantitéProduit.addEventListener ('click', function() {
-    let quantitePanier = document.getElementById(`${produit.name}quantite`);
-    let totalPrixProduit = document.getElementById(`${produit.name}total`); 
-
-    produit.quantity --;
-    quantitePanier.innerHTML = ' ' + produit.quantity  +  ' '
-    totalPrixProduit.innerHTML = `<strong>${produit.quantity * produit.price.toFixed(2)}</strong> €`
-});
-};
-/*/
 
