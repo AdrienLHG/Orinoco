@@ -68,7 +68,7 @@ for (let i = 0; i < modificationQuantite.length; i++) {
 
 function changementQuantite(event) {
     let chiffreQuantite = event.target
-    if (isNaN(chiffreQuantite.value) || chiffreQuantite <= 0) {
+    if (isNaN(chiffreQuantite.value) || chiffreQuantite.value <= 0) {
     chiffreQuantite.value = 1
 }
     let panier = JSON.parse(localStorage.getItem("monPanier"));
