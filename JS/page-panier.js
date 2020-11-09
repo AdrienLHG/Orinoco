@@ -17,7 +17,7 @@ for (let produit of panier) {
                 <div class="col-lg-5">
                     <a href="produit.html?id=${produit.id}"><h2 class="mb-2">${produit.name}</h2></a>
                     <p><strong>Quantité</strong> : 
-                    <input class=" col-lg-2 quantite" id="${produit.quantity}quantite" type="number" value="${produit.quantity}" min="0">
+                    <input class=" col-lg-2 quantite" id="${produit.quantity}quantite" type="number" value="${produit.quantity}">
                 </div>
 
                 <div class="col-lg-2"
@@ -72,43 +72,18 @@ function changementQuantite(event) {
     chiffreQuantite.value = 1
 }
     let panier = JSON.parse(localStorage.getItem("monPanier"));
-    for( let i = 0; i < localStorage.length; i++){
-        localStorage.key(i);
-        function modificationQuantitePanier(panier) {
-        panier[i].quantity = chiffreQuantite.value
+       panier.forEach(produit => {
+        function modificationQuantitePanier(produit) {
+        produit.quantity = chiffreQuantite.value
         localStorage.clear(); //on vide le storage avant de le mettre à jour;
         localStorage.setItem("monPanier", JSON.stringify(panier)); //maj du panier sans l'élément i;
     }
-        modificationQuantitePanier(panier)
-    };
+        modificationQuantitePanier(produit)
+    });
+    console.log(panier)
     miseAJourTotal()
 
 };
-
-/*/ TEST LUNDI 9 NOVEMBRE 
-let modificationQuantite = document.getElementsByClassName('quantite')
-for (let i = 0; i < modificationQuantite.length; i++) {
-    let quantite = modificationQuantite[i].value
-    let ligne = i
-    modificationQuantite[i].addEventListener ('change', changementQuantite(quantite, ligne))
-    
-
-}
-
-function changementQuantite(quantite, ligne) {
-   // if (isNaN(quantite) || quantite <= 0) {
-    //quantite = 1
-
-//}
-    let panier = JSON.parse(localStorage.getItem("monPanier"));
-        //(panier[ligne].quantity) = quantite + 3
-        localStorage.setItem(panier[ligne].quantity, 3)
-        console.log (panier)
-        //localStorage.setItem("monPanier", JSON.stringify(panier)); //maj du panier sans l'élément i;
-    }
-    miseAJourTotal()
-
-/*/
 
 function suppressionArticle(i) {
     console.log("suppression article i :", i);
