@@ -7,14 +7,11 @@
           content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-          crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- Font Awesome CSS -->
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://kit.fontawesome.com/4c22579057.js" crossorigin="anonymous"></script>
+
 
     <!-- Merienda Font -->
     <link href="https://fonts.googleapis.com/css2?family=Merienda+One&display=swap"
@@ -23,24 +20,78 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/style.css" />
 
-    <!-- Animate on scroll -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-
     <title>Orinoco</title>
 </head>
 
 <body>
 
 
-    <!-- Header / logo Orinoco -->
+    <!-- Header / barre de navigation -->
+    <!-- En JS : assurer le changement de classe lors du clique sur le lien -->
     <header>
+        <div class="bg-light">
+            <div class="container">
+                <div class="row">
+                    <nav class="col navbar navbar-expand navbar-light">
+                        <a class="navbar-brand" href="index.html"></a>
+                        <img src="images/logoOrinoco.png" width="208" height="50" alt="Site logo" />
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="index.html">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="page-panier.html">Panier</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <!-- Main / texte remerciement + récaptitulatif commande -->
+    <!-- Main / description du produit-->
     <main>
-
+      <div class="container" id="Containerconfirmation">
+            <div class="row">
+                <div class="col">
+                    <h1 class="text-center" id="h1confirmation">Confirmation de votre commande.</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="Sectionconfirmation">
+                        <p>Bonjour <span id="nomcommande"></span>,</p><br />
+                        <p>Merci d'avoir commandé chez Orinoco ! Le prix total de votre panier est de <span id="prixcommande"></span> €.</p><br />
+                        <p>Voici le numéro de votre commande: <span id="idcommande"></span></p><br />
+                        <p>Merci de bien vouloir le conserver. Nous espérons vous revoir prochainement et vous remercions pour votre confiance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
+    <!-- Footer / liens RS et architecture site -->
+        <footer class="bg-light mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item"><a href="#">À propos</a></li>
+                            <li class="list-inline-item">&middot;</li>
+                            <li class="list-inline-item"><a href="#">Vie privée</a></li>
+                            <li class="list-inline-item">&middot;</li>
+                            <li class="list-inline-item"><a href="#">Conditions d'utilisations</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
 
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="JS/page-produit.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
