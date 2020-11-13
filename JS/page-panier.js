@@ -4,6 +4,8 @@
 
 const affichagePanier = document.getElementById('panierachat') //récupération id=panierachat
 let panier = JSON.parse(localStorage.getItem("monPanier"));
+let total;
+
 
 if (panier !== null) {
 for (let produit of panier) { 
@@ -21,10 +23,10 @@ for (let produit of panier) {
                     <input class=" col-lg-2 quantite" id="${produit.quantity}quantite" type="number" value="${produit.quantity}">
                 </div>
 
-                <div class="col-lg-2"
+                <div class="col-lg-1"
                     <p class="prixProduitPanier" id='${produit.name}total'><strong>Prix unitaire : <span class='chiffre-prix'>${produit.price.toFixed(2)} €</span></strong></p>   
                  </div>
-                 <div class="col-lg-2"
+                 <div class="col-lg-1"
                  <p class="prixProduitQuantite" id='${produit.name}total'><strong>Prix total : <span class='chiffre-prix'>${produit.total}</span></strong></p>   
               </div>
 
@@ -60,7 +62,7 @@ for (let i = 0; i < boutonSuppressionArticle.length; i++) {
     });
 }
 
-let modificationQuantite = document.getElementsByClassName('quantite')
+/*/let modificationQuantite = document.getElementsByClassName('quantite')
 for (let i = 0; i < modificationQuantite.length; i++) {
     let quantite = modificationQuantite[i]
     quantite.addEventListener ('change', changementQuantite)
@@ -85,6 +87,7 @@ function changementQuantite(event) {
     miseAJourTotal()
 
 };
+/*/
 
 function suppressionArticle(i) {
     console.log("suppression article i :", i);
@@ -96,7 +99,7 @@ function suppressionArticle(i) {
 
 function miseAJourTotal() {
     let lignesPanier = affichagePanier.getElementsByClassName('ligne-produit')
-    let total = 0;
+    total = 0
     for (let i = 0; i < lignesPanier.length; i++) {
         let ligneProduit = lignesPanier[i]
         let prixProduit = ligneProduit.getElementsByClassName('chiffre-prix')[0]
@@ -115,8 +118,9 @@ for (let i=0; i< panier.length; i++){ //boucle pour recuperer les id
 
 const commandeUser = {
     contact: {},
-    products: [],
+    products: products,
 }
+
 const urlOrder = 'http://localhost:3000/api/cameras/order' // création de la variable pour relier à l'API
 
 document.getElementById("formulaire").addEventListener("submit", function (e){
@@ -157,7 +161,7 @@ document.getElementById("formulaire").addEventListener("submit", function (e){
               window.location = `page-commande.html?id=${text.orderId}&name=${prenomForm}&prix=${total}`
             });
         });
-        //localStorage.clear()       
+        localStorage.clear()       
     }
 })
 
