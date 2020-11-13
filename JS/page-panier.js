@@ -4,7 +4,8 @@
 
 const affichagePanier = document.getElementById('panierachat') //récupération id=panierachat
 let panier = JSON.parse(localStorage.getItem("monPanier"));
-if (panier.length > 0) {
+
+if (panier !== null) {
 for (let produit of panier) { 
 
             // on ajoute les informations des appareils dans le HTML
@@ -107,6 +108,58 @@ function miseAJourTotal() {
 let prixTotal = document.getElementsByClassName('prix-total')[0];
  prixTotal.innerText = "Prix total: " + total  + ".00 €"; 
 }
+let products = [] //initialisation de l'objet qui va contenir les id des produits 
+for (let i=0; i< panier.length; i++){ //boucle pour recuperer les id 
+    products.push(panier[i].id) //envoie des id dans la variable products
+};
+
+const commandeUser = {
+    contact: {},
+    products: [],
+}
+const urlOrder = 'http://localhost:3000/api/cameras/order' // création de la variable pour relier à l'API
+
+document.getElementById("formulaire").addEventListener("submit", function (e){
+    e.preventDefault();
+
+    //Avant d'envoyer un formulaire, vérification que le panier n'est pas vide.
+    if (panier.length == 0){
+        alert("Attention, votre panier est vide.");
+    }
+    else {
+        //Récupération des champs
+        let nomForm = document.getElementById("nom").value;
+        let prenomForm = document.getElementById("prénom").value;
+        let emailForm = document.getElementById("email").value;
+        let adresseForm = document.getElementById("adresse").value;
+        let villeForm = document.getElementById("ville").value;
+
+        //Création de l'objet formulaireObjet
+        commandeUser.contact = {
+            firstName: prenomForm,
+            lastName: nomForm,  
+            address: adresseForm,
+            city: villeForm,
+            email: emailForm
+        }    
+        //Envoi des données récupérées
+        const optionsFetch = {
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            method:"POST",
+            body: JSON.stringify(commandeUser),         
+        }   
+        console.log(commandeUser)  
+        fetch(urlOrder, optionsFetch).then(function(response) {
+            response.json().then(function(text) {
+              console.log(text.orderId);
+              window.location = `page-commande.html?id=${text.orderId}&name=${prenomForm}&prix=${total}`
+            });
+        });
+        //localStorage.clear()       
+    }
+})
 
 
 
