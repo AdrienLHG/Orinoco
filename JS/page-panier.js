@@ -68,19 +68,19 @@ for (let i = 0; i < modificationQuantite.length; i++) {
 
 function changementQuantite(event) {
     let chiffreQuantite = event.target
-    if (isNaN(chiffreQuantite.value) || chiffreQuantite <= 0) {
+    if (isNaN(chiffreQuantite.value) || chiffreQuantite.value <= 0) {
     chiffreQuantite.value = 1
 }
     let panier = JSON.parse(localStorage.getItem("monPanier"));
-       panier.forEach(produit => {
-        function modificationQuantitePanier(produit) {
-        produit.quantity = chiffreQuantite.value
+    for( let i = 0; i < localStorage.length; i++){
+        localStorage.key(i);
+        function modificationQuantitePanier(panier) {
+        panier[i].quantity = chiffreQuantite.value
         localStorage.clear(); //on vide le storage avant de le mettre à jour;
         localStorage.setItem("monPanier", JSON.stringify(panier)); //maj du panier sans l'élément i;
     }
-        modificationQuantitePanier(produit)
-    });
-    console.log(panier)
+        modificationQuantitePanier(panier)
+    };
     miseAJourTotal()
 
 };
