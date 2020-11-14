@@ -3,7 +3,7 @@ let panier = JSON.parse(localStorage.getItem("monPanier"));
 let total;
 
 
-if (panier !== null) {
+if (panier.length > 0) {
 for (let produit of panier) { 
 
             // on ajoute les informations des appareils dans le HTML
@@ -126,7 +126,7 @@ document.getElementById("formulaire").addEventListener("submit", function (e){
     e.preventDefault();
 
     //Avant d'envoyer un formulaire, vérification que le panier n'est pas vide.
-    if (panier == null){
+    if (panier.length < 1){
         alert("Attention, votre panier est vide.");
     }
     else {
