@@ -20,8 +20,7 @@ for (let produit of panier) {
                 <div class="col-lg-5">
                     <a href="produit.html?id=${produit.id}"><h2 class="mb-2">${produit.name}</h2></a>
                     <p><strong>Quantité</strong> : 
-                    <input class=" col-lg-2 quantite" id="${produit.quantity}quantite" type="number" value="${produit.quantity}">
-                </div>
+                    <input class=" col-lg-2 quantite" id="${produit.id}" type="number" value="${produit.quantity}">
 
                 <div class="col-lg-1"
                     <p class="prixProduitPanier" id='${produit.name}total'><strong>Prix unitaire : <span class='chiffre-prix'>${produit.price.toFixed(2)} €</span></strong></p>   
@@ -62,7 +61,7 @@ for (let i = 0; i < boutonSuppressionArticle.length; i++) {
     });
 }
 
-/*/let modificationQuantite = document.getElementsByClassName('quantite')
+let modificationQuantite = document.getElementsByClassName('quantite')
 for (let i = 0; i < modificationQuantite.length; i++) {
     let quantite = modificationQuantite[i]
     quantite.addEventListener ('change', changementQuantite)
@@ -71,23 +70,21 @@ for (let i = 0; i < modificationQuantite.length; i++) {
 
 function changementQuantite(event) {
     let chiffreQuantite = event.target
+    let id = chiffreQuantite.id
     if (isNaN(chiffreQuantite.value) || chiffreQuantite.value <= 0) {
     chiffreQuantite.value = 1
 }
     let panier = JSON.parse(localStorage.getItem("monPanier"));
-    for( let i = 0; i < localStorage.length; i++){
-        localStorage.key(i);
-        function modificationQuantitePanier(panier) {
-        panier[i].quantity = chiffreQuantite.value
+    let matchProduit = panier.find(event => event.id === id);
+    if (matchProduit) {
+        matchProduit.quantity = chiffreQuantite.value
         localStorage.clear(); //on vide le storage avant de le mettre à jour;
         localStorage.setItem("monPanier", JSON.stringify(panier)); //maj du panier sans l'élément i;
     }
-        modificationQuantitePanier(panier)
-    };
     miseAJourTotal()
 
 };
-/*/
+
 
 function suppressionArticle(i) {
     console.log("suppression article i :", i);
