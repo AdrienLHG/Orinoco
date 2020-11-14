@@ -1,7 +1,3 @@
-// Création des actions sur le panier : mise à jour du panier (ajout des lignes), mise à jourdu prix total, action sur les produits : ajout quantité, suppresion quantité, suppression article
-// Envoi des information du panier via le formulaire
-// création du prix total panier
-
 const affichagePanier = document.getElementById('panierachat') //récupération id=panierachat
 let panier = JSON.parse(localStorage.getItem("monPanier"));
 let total;
@@ -19,17 +15,17 @@ for (let produit of panier) {
 
                 <div class="col-lg-5">
                     <a href="produit.html?id=${produit.id}"><h2 class="mb-2">${produit.name}</h2></a>
+                    <p class="prixProduitPanier" id='${produit.name}total'><strong>Prix unitaire : <span class='chiffre-prix'>${produit.price.toFixed(2)} €</span></strong></p>   
+
                     <p><strong>Quantité</strong> : 
                     <input class=" col-lg-2 quantite" id="${produit.id}" type="number" value="${produit.quantity}">
-
-                <div class="col-lg-1"
-                    <p class="prixProduitPanier" id='${produit.name}total'><strong>Prix unitaire : <span class='chiffre-prix'>${produit.price.toFixed(2)} €</span></strong></p>   
-                 </div>
-                 <div class="col-lg-1"
-                 <p class="prixProduitQuantite" id='${produit.name}total'><strong>Prix total : <span class='chiffre-prix'>${produit.total}</span></strong></p>   
+                </div>
+                
+                 <div class="col-lg-2 mt-2"
+                 <p class="prixProduitQuantite" id='${produit.name}total'><strong>Prix total : <span class='chiffre-prix-total'>${produit.total}</span></strong></p>   
               </div>
 
-                <div class="col-lg-2">
+                <div class="col-lg-2 mt-2">
                     <i class="fa fa-trash"></i>  
                  </div>
             </div>
@@ -81,6 +77,7 @@ function changementQuantite(event) {
         localStorage.clear(); //on vide le storage avant de le mettre à jour;
         localStorage.setItem("monPanier", JSON.stringify(panier)); //maj du panier sans l'élément i;
     }
+
     miseAJourTotal()
 
 };
@@ -97,13 +94,18 @@ function suppressionArticle(i) {
 function miseAJourTotal() {
     let lignesPanier = affichagePanier.getElementsByClassName('ligne-produit')
     total = 0
+    let totalProduit
     for (let i = 0; i < lignesPanier.length; i++) {
         let ligneProduit = lignesPanier[i]
         let prixProduit = ligneProduit.getElementsByClassName('chiffre-prix')[0]
         let quantiteProduit = ligneProduit.getElementsByClassName('quantite')[0]
+        let affichagePrixTotalProduit = ligneProduit.getElementsByClassName('chiffre-prix-total')[0]
         let prix = parseFloat(prixProduit.innerText.replace('€', ''))
         let quantite = quantiteProduit.value
         total = total + (prix * quantite)
+        totalProduit = prix * quantite
+        affichagePrixTotalProduit.innerText = totalProduit + ".00 €"
+
     }
 let prixTotal = document.getElementsByClassName('prix-total')[0];
  prixTotal.innerText = "Prix total: " + total  + ".00 €"; 
@@ -124,7 +126,7 @@ document.getElementById("formulaire").addEventListener("submit", function (e){
     e.preventDefault();
 
     //Avant d'envoyer un formulaire, vérification que le panier n'est pas vide.
-    if (panier.length == 0){
+    if (panier == null){
         alert("Attention, votre panier est vide.");
     }
     else {
