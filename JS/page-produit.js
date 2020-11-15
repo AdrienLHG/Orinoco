@@ -5,15 +5,14 @@ let itemId = params.get("id")
 // On cible la balise div dans le DOM
 const descriptionProduit = document.getElementById('produit')
 
-//récupération de l'url des produits
+//On récupère de l'url des produits
 let listeProduits = 'http://localhost:3000/api/cameras' 
 
 // On insère les éléments du produits dans le DOM
-
 fetch(listeProduits + '/' + itemId).then(response => 
     response.json()).then(data => {
            
-            //--variable prix pour le diviser par 100
+        //--variable prix pour le diviser par 100
         let prixProduit = data.price / 100;
         
         //--variable vide + boucle pour créer le select qui accueil lenses
@@ -52,7 +51,7 @@ fetch(listeProduits + '/' + itemId).then(response =>
 
     function ajoutAuPanier() { 
 
-        //--variable produit ajouté au panier 
+        // variable produit ajouté au panier 
                     let produitAjoute = {
                         name: data.name,
                         id: data._id,
@@ -72,14 +71,12 @@ fetch(listeProduits + '/' + itemId).then(response =>
             produitAjoute.total = produitAjoute.price * produitPresent.quantity
             localStorage.setItem('monPanier', JSON.stringify(panier));
             alert (`Votre produit à bien été ajouté au panier`)
-            //localStorage.clear()
             console.log (panier)          
                                     
         }else{ // si non, push du produit dans le panier
             panier.push(produitAjoute);  
             localStorage.setItem('monPanier', JSON.stringify(panier));                                
             alert (`Votre produit à bien été ajouté au panier`)
-            //localStorage.clear()
             console.log(panier)          
           
 

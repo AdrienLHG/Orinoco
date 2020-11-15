@@ -1,6 +1,6 @@
 const affichagePanier = document.getElementById('panierachat') //récupération id=panierachat
-let panier = JSON.parse(localStorage.getItem("monPanier"));
-let total;
+let panier = JSON.parse(localStorage.getItem("monPanier")); // variable panier
+let total; //variable panier
 
 
 if (panier.length > 0) {
@@ -8,7 +8,7 @@ for (let produit of panier) {
 
             // on ajoute les informations des appareils dans le HTML
             affichagePanier.innerHTML += `
-            <div class="row m-2 ligne-produit">
+            <div class="row m-2 ligne-produit pt-2 border-top border-dark">
                 <div class="col-lg-3">
                     <img alt="${produit.name}" class="img-fluid" src="${produit.image}">
                 </div>
@@ -21,11 +21,11 @@ for (let produit of panier) {
                     <input class=" col-lg-2 quantite" id="${produit.id}" type="number" value="${produit.quantity}">
                 </div>
                 
-                 <div class="col-lg-2 mt-2"
+                 <div class="col-lg-2 col-6 mt-2"
                  <p class="prixProduitQuantite" id='${produit.name}total'><strong>Prix total : <span class='chiffre-prix-total'>${produit.total}</span></strong></p>   
               </div>
 
-                <div class="col-lg-2 mt-2">
+                <div class="col-lg-2 col-6 mt-2">
                     <i class="fa fa-trash"></i>  
                  </div>
             </div>
@@ -34,9 +34,10 @@ for (let produit of panier) {
 
 
     }
+// message si le panier est vide
 } else {
     affichagePanier.innerHTML = `
-        <div class="jumbotron jumbotron-fluid">
+        <div class="jumbotron jumbotron-fluid mt-4">
             <div class="container">
               <h1 class="display-4">Orinoco</h1>
               <p class="lead">Votre panier est vide ! Pensez à y ajouter des articles pour les commander.</p>
@@ -45,7 +46,7 @@ for (let produit of panier) {
     `;
 };
 
-
+// suppression d'un article dans le panier via l'icone poubelle
 let boutonSuppressionArticle = document.getElementsByClassName ('fa-trash')
 for (let i = 0; i < boutonSuppressionArticle.length; i++) {
     let supprimer = boutonSuppressionArticle[i]
@@ -57,6 +58,7 @@ for (let i = 0; i < boutonSuppressionArticle.length; i++) {
     });
 }
 
+// modification de la quantité d'un article dans le panier via l'input
 let modificationQuantite = document.getElementsByClassName('quantite')
 for (let i = 0; i < modificationQuantite.length; i++) {
     let quantite = modificationQuantite[i]
@@ -64,6 +66,7 @@ for (let i = 0; i < modificationQuantite.length; i++) {
 
 }
 
+// création de la fonction de modification de la quantité en fonction du produit
 function changementQuantite(event) {
     let chiffreQuantite = event.target
     let id = chiffreQuantite.id
@@ -82,7 +85,7 @@ function changementQuantite(event) {
 
 };
 
-
+// création de la fonction de suppression d'un produit dans le panier
 function suppressionArticle(i) {
     console.log("suppression article i :", i);
     panier.splice(i, 1); //suppression de l'element i du tableau;  
@@ -91,6 +94,7 @@ function suppressionArticle(i) {
     window.location.reload();
 }
 
+// création de la fonction de mise à jour du total du panier ainsi que du total par article
 function miseAJourTotal() {
     let lignesPanier = affichagePanier.getElementsByClassName('ligne-produit')
     total = 0
@@ -108,13 +112,17 @@ function miseAJourTotal() {
 
     }
 let prixTotal = document.getElementsByClassName('prix-total')[0];
- prixTotal.innerText = "Prix total: " + total  + ".00 €"; 
+ prixTotal.innerText = "Total de votre commande : " + total  + ".00 €"; 
 }
+
+// méthode pour valider le panier et passer la commande 
+
 let products = [] //initialisation de l'objet qui va contenir les id des produits 
 for (let i=0; i< panier.length; i++){ //boucle pour recuperer les id 
     products.push(panier[i].id) //envoie des id dans la variable products
 };
 
+//initialisation de la variable envoyée lors de la commande avec les infos utilisateur et produits
 const commandeUser = {
     contact: {},
     products: products,

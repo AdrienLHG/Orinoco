@@ -2,6 +2,7 @@
 const item = document.getElementById('produits'); //récupération id=main
 let listeProduits = 'http://localhost:3000/api/cameras' // création de la variable pour relier à l'API
 
+// appel de l'API
 fetch(listeProduits).then(response => 
      response.json())
     .then(data => {
@@ -19,7 +20,7 @@ fetch(listeProduits).then(response =>
                 `;
 
         });
-
+    // On attrape l'erreur et on affiche le message dans la console
     }).catch(function(error) {
   console.log('Il y a eu un problème avec l\'appel de l\'API : ' + error.message);
   });

@@ -24,17 +24,14 @@
 </head>
 
 <body>
-
-
     <!-- Header / barre de navigation -->
-    <!-- En JS : assurer le changement de classe lors du clique sur le lien -->
     <header>
         <div class="bg-light">
             <div class="container">
                 <div class="row">
                     <nav class="col navbar navbar-expand navbar-light">
                         <a class="navbar-brand" href="index.html"></a>
-                        <img src="images/logoOrinoco.png" width="208" height="50" alt="Site logo" />
+                        <img src="images/logoOrinoco.png" width="208" height="50" id="logo" href="index.html" alt="Site logo" />
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
                                 <a class="nav-link" href="index.html">Accueil</a>
@@ -51,7 +48,7 @@
 
     <!-- Main / liste des produits -->
     <main class="container">
-        <div class="jumbotron jumbotron-fluid">
+        <div class="jumbotron jumbotron-fluid mt-4">
             <div class="container">
               <h1 class="display-4">Bienevue chez Orinoco</h1>
               <p class="lead">Trouvez l'appareil photo qui vous convient.</p>
@@ -68,8 +65,6 @@
                     <ul class="list-inline text-center">
                         <li class="list-inline-item"><a href="#">À propos</a></li>
                         <li class="list-inline-item">&middot;</li>
-                        <li class="list-inline-item"><a href="#">Vie privée</a></li>
-                        <li class="list-inline-item">&middot;</li>
                         <li class="list-inline-item"><a href="#">Conditions d'utilisations</a></li>
                     </ul>
                 </div>
@@ -78,8 +73,9 @@
     </footer>
 
 
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!--JS SCRIPT-->
     <script src="JS/index.js"></script>
+   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
