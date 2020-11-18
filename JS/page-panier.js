@@ -74,11 +74,11 @@ function changementQuantite(event) {
     chiffreQuantite.value = 1
 }
     let panier = JSON.parse(localStorage.getItem("monPanier"));
-    let matchProduit = panier.find(event => event.id === id);
+    let matchProduit = panier.find(event => event.id === id); // recherche de la présence du produit dans le panier
     if (matchProduit) {
         matchProduit.quantity = chiffreQuantite.value
         localStorage.clear(); //on vide le storage avant de le mettre à jour;
-        localStorage.setItem("monPanier", JSON.stringify(panier)); //maj du panier sans l'élément i;
+        localStorage.setItem("monPanier", JSON.stringify(panier)); //maj du panier avec la nouvelle quantité de l'élément i;
     }
 
     miseAJourTotal()
